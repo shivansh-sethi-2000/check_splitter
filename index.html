@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quick Tip</title>
+</head>
+<body>
+    <main  id="main">
+        <h1> Quick Tip</h1>
+
+        <section>
+            <div class="bill">
+                <label for="">Bill</label>
+                <input type="number" placeholder="Your Bill" id="yourBill">
+            </div>
+            <div>
+                <div class="space-between">
+                    <label for="">Select Tip</label>
+                    <span id="tippercent"></span>
+                </div>
+                <input type="range" value="0" id = "tipinput" class="range">
+            </div>
+            <div class="space-between">
+                <span>Tip</span>
+                <span id="tipValue"></span>
+            </div>
+            <hr>
+            <div class="space-between total">
+                <span>Total</span>
+                <span id="totalWithTip"></span>
+            </div>
+        </section>
+        <section>
+            <div>
+                <div class="space-between">
+                    <label for="">Split</label>
+                    <span id="splitValue"></span>
+                </div>
+                <input type="range" min="1" max="10" value="1" id="splitInput" class="range">
+            </div>
+            <div class="space-between">
+                <span>Bill Each</span>
+                <span id="billEach"></span>
+            </div>
+            <div class="space-between">
+                <span>Tip Each</span>
+                <span id="tipEach"></span>
+            </div>
+        </section>
+    </main>
+    <script>
+
+        function money(val) {
+            val = Math.ceil(val*100);
+            val = val.toFixed(2);
+            val /= 100;
+            return '$'+val;
+        }
+
+        function update() {
+            // console.log('worked');
+            let bill = Number(document.getElementById("yourBill").value);
+            let tip = document.getElementById("tipinput").value;
+            let split = document.getElementById("splitInput").value;
+
+            let tipVal = bill * (tip/100);
+            let billEach = (bill + tipVal)/split;
+            let total = bill+tipVal;
+            let tipEach = tipVal/split;
+
+            // console.log({split});
+            document.getElementById("tippercent").innerHTML = tip+'%';
+            document.getElementById("splitValue").innerHTML = split+' persons';
+            document.getElementById("billEach").innerHTML = money(billEach);
+            document.getElementById('tipValue').innerHTML = money(tipVal);
+            document.getElementById("totalWithTip").innerHTML = money(total);
+            document.getElementById("tipEach").innerHTML = money(tipEach);
+
+
+        }
+
+        let Main = document.getElementById("main");
+        Main.addEventListener('input',update);
+
+    </script>
+</body>
+</html>
